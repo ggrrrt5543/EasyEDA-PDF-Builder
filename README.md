@@ -1,3 +1,5 @@
+<img src="assets/readme-cover.svg" alt="PDF → EasyEDA — Распознавание схем и проверка модели цепи" width="100%">
+
 # PDF2EasyEDA AI
 
 AI-assisted pipeline for reconstructing electronic schematics and PCB projects from PDF files and exporting them to **EasyEDA Standard**.
@@ -230,3 +232,8 @@ When reporting an issue, please remove API keys and confidential circuit informa
 ## License
 
 MIT License. See `LICENSE` for details.
+
+
+---
+
+Maintained by [ggrrrt5543](https://github.com/ggrrrt5543). Инструкции, ограничения и сведения о сторонних компонентах приведены выше.
