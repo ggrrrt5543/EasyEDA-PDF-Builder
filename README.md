@@ -2,22 +2,22 @@
 
 # PDF2EasyEDA AI
 
-AI-assisted pipeline for reconstructing electronic schematics and PCB projects from PDF files and exporting them to **EasyEDA Standard**.
+Проект для восстановления электронных схем и печатных плат по PDF с помощью ИИ и экспорта в **EasyEDA Standard**.
 
 > [!WARNING]
-> This project is under active development. The current MVP can analyze PDFs, communicate with AI providers, build a structured circuit model, and validate extracted data. Native EasyEDA SCH and PCB generation is still in development.
+> Проект активно разрабатывается. Текущая минимальная версия умеет анализировать PDF, обращаться к ИИ-сервисам, строить структурированную модель цепи и проверять извлечённые данные. Генерация полноценных файлов SCH и PCB для EasyEDA пока в разработке.
 
-## Project goal
+## Цель проекта
 
-The final workflow is designed to be simple:
+Итоговый сценарий должен быть простым:
 
-1. Select a circuit PDF.
-2. Select an AI provider and model.
-3. Enter your API key.
-4. Click **Generate**.
-5. Receive validated EasyEDA files.
+1. Выбрать PDF со схемой.
+2. Выбрать ИИ-сервис и модель.
+3. Ввести свой API-ключ.
+4. Нажать кнопку генерации.
+5. Получить проверенные файлы EasyEDA.
 
-Expected output:
+Ожидаемая структура результата:
 
 ```text
 output/
@@ -27,152 +27,152 @@ output/
 └── validation_report.html
 ```
 
-## How it works
+## Как это работает
 
 ```text
 PDF
  ↓
-Page rendering and image preprocessing
+Отрисовка страниц и предварительная обработка изображений
  ↓
-AI vision provider
+ИИ-сервис с распознаванием изображений
  ↓
-Structured circuit model
+Структурированная модель электрической цепи
  ↓
-Component, pin, net and footprint validation
+Проверка компонентов, выводов, соединений и посадочных мест
  ↓
-EasyEDA schematic generation
+Генерация схемы EasyEDA
  ↓
-PCB outline and component placement
+Контур платы и размещение компонентов
  ↓
-Netlist comparison, ERC and DRC
+Сравнение списков соединений, проверки ERC и DRC
  ↓
-EasyEDA SCH.json and PCB.json
+Файлы EasyEDA SCH.json и PCB.json
 ```
 
-The AI is used for recognition and interpretation. Deterministic code is responsible for validation and export.
+ИИ используется для распознавания и интерпретации. За проверку и экспорт отвечает код с явно заданными правилами.
 
-The program must not silently guess when information is missing or ambiguous. Uncertain components, connections, pin numbers, footprints, or polarities should block the final export until they are resolved.
+Если сведения отсутствуют или неоднозначны, программа не должна молча додумывать их. Неопределённые компоненты, соединения, номера выводов, посадочные места и полярность должны блокировать итоговый экспорт до уточнения.
 
-## Current features
+## Текущие возможности
 
-- [x] Windows desktop interface
-- [x] PDF page extraction
-- [x] Multi-page PDF support
-- [x] OpenAI-compatible provider adapter
-- [x] Google Gemini adapter
-- [x] Anthropic adapter
-- [x] Offline mock provider for testing
-- [x] Structured intermediate circuit model
-- [x] Component, pin and net validation
-- [x] Guarded pipeline that blocks invalid output
-- [x] Reference EasyEDA and Specctra format checks
-- [ ] Native EasyEDA schematic generator
-- [ ] Automatic symbol matching
-- [ ] Automatic footprint matching
-- [ ] Native EasyEDA PCB generator
-- [ ] PCB outline reconstruction
-- [ ] Automatic component placement
-- [ ] DSN/SES autorouter integration
-- [ ] Automatic ERC and DRC integration
-- [ ] Final one-click workflow
+- [x] Настольный интерфейс для Windows
+- [x] Извлечение страниц PDF
+- [x] Поддержка многостраничных PDF
+- [x] Адаптер OpenAI и совместимых сервисов
+- [x] Адаптер Google Gemini
+- [x] Адаптер Anthropic
+- [x] Локальный имитатор ИИ-сервиса для тестирования
+- [x] Структурированная промежуточная модель цепи
+- [x] Проверка компонентов, выводов и соединений
+- [x] Блокировка некорректного результата на этапах обработки
+- [x] Проверка эталонных форматов EasyEDA и Specctra
+- [ ] Генератор схем в собственном формате EasyEDA
+- [ ] Автоматический подбор условных обозначений
+- [ ] Автоматический подбор посадочных мест
+- [ ] Генератор печатных плат в собственном формате EasyEDA
+- [ ] Восстановление контура платы
+- [ ] Автоматическое размещение компонентов
+- [ ] Интеграция автотрассировщика через DSN/SES
+- [ ] Автоматические проверки ERC и DRC
+- [ ] Полный сценарий в один клик
 
-## Supported AI providers
+## Поддерживаемые ИИ-сервисы
 
-- OpenAI and OpenAI-compatible APIs
+- OpenAI и совместимые API
 - Google Gemini
 - Anthropic Claude
-- Local or custom OpenAI-compatible endpoints
-- Mock/offline provider for development
+- Локальные и собственные серверы с API, совместимым с OpenAI
+- Имитатор сервиса для разработки без подключения к сети
 
-Provider adapters are separated from the processing pipeline, allowing additional AI services to be added later.
+Адаптеры сервисов отделены от основной обработки, чтобы в дальнейшем можно было добавлять новые ИИ-сервисы.
 
-## Installation on Windows
+## Установка на Windows
 
-### Requirements
+### Требования
 
-- Windows 10 or Windows 11
-- Python 3.10 or newer
-- Python 3.12 recommended
-- API key for the selected AI provider
+- Windows 10 или Windows 11
+- Python 3.10 или новее
+- Рекомендуется Python 3.12
+- API-ключ выбранного ИИ-сервиса
 
-### Setup
+### Установка
 
-Clone or download the repository:
+Клонируй или скачай репозиторий:
 
 ```powershell
-git clone https://github.com/YOUR_USERNAME/pdf2easyeda-ai.git
-cd pdf2easyeda-ai
+git clone https://github.com/ggrrrt5543/EasyEDA-PDF-Builder.git
+cd EasyEDA-PDF-Builder
 ```
 
-Run:
+Запусти:
 
 ```text
 install_windows.bat
 ```
 
-After installation, start the application with:
+После установки открой приложение:
 
 ```text
 start_windows.bat
 ```
 
-## Target one-click workflow
+## Планируемый сценарий в один клик
 
-1. Open the application.
-2. Select the input PDF.
-3. Select an AI provider.
-4. Enter the model name and API key.
-5. Select the output directory.
-6. Click **Generate EasyEDA project**.
-7. Review any detected ambiguities.
-8. Download the generated SCH, PCB, and validation report.
+1. Открыть приложение.
+2. Выбрать исходный PDF.
+3. Выбрать ИИ-сервис.
+4. Ввести название модели и API-ключ.
+5. Выбрать папку результата.
+6. Нажать кнопку генерации проекта EasyEDA.
+7. Проверить обнаруженные неоднозначности.
+8. Получить файлы SCH, PCB и отчёт о проверке.
 
-## Validation strategy
+## Стратегия проверки
 
-Before a result can be marked as valid, the pipeline should verify:
+Прежде чем считать результат корректным, необходимо проверить:
 
-- Every component has a unique reference designator.
-- All required component properties are present.
-- Pin numbers match symbol definitions.
-- Symbol pins match footprint pads.
-- Every electrical net is internally consistent.
-- No connections were silently added or removed.
-- Power pins and power nets are verified.
-- Polarized components have an identified orientation.
-- Connector orientation and pin 1 are verified.
-- Schematic and PCB netlists match.
-- There are no unresolved recognition ambiguities.
-- ERC completes without blocking errors.
-- DRC completes without blocking errors.
-- No unrouted connections remain when autorouting is enabled.
+- Каждый компонент имеет уникальное позиционное обозначение.
+- Присутствуют все обязательные свойства компонентов.
+- Номера выводов соответствуют условным обозначениям.
+- Выводы условных обозначений соответствуют контактным площадкам посадочных мест.
+- Каждая электрическая цепь внутренне согласована.
+- Соединения не были незаметно добавлены или удалены.
+- Выводы питания и цепи питания проверены.
+- Определена ориентация полярных компонентов.
+- Проверены ориентация разъёмов и положение первого вывода.
+- Списки соединений схемы и платы совпадают.
+- Не осталось неразрешённых неоднозначностей распознавания.
+- Проверка электрических правил ERC завершилась без блокирующих ошибок.
+- Проверка правил проектирования DRC завершилась без блокирующих ошибок.
+- При включённой автотрассировке не осталось неразведённых соединений.
 
-## Accuracy and safety
+## Точность и безопасность
 
-A PDF is a visual representation, not a complete machine-readable netlist. Some PDFs may contain missing labels, low-resolution images, hidden connections, unclear pin numbers, or undocumented footprints.
+PDF — это визуальное представление, а не полный машиночитаемый список соединений. В нём могут отсутствовать подписи, быть изображения низкого разрешения, скрытые соединения, неразборчивые номера выводов или недокументированные посадочные места.
 
-For this reason, PDF-only conversion cannot honestly guarantee perfect electrical or manufacturing correctness.
+Поэтому преобразование только по PDF не может гарантировать полную электрическую корректность и готовность к производству.
 
-For improved accuracy, the pipeline may optionally accept:
+Для повышения точности в дальнейшем могут использоваться:
 
-- BOM files
-- Existing netlists
-- Datasheets
-- Reference SCH/PCB files
-- Footprint libraries
-- Board photographs
+- Спецификации компонентов BOM
+- Готовые списки соединений
+- Техническая документация компонентов
+- Эталонные файлы SCH/PCB
+- Библиотеки посадочных мест
+- Фотографии плат
 
 > [!CAUTION]
-> Never send an automatically generated PCB directly to manufacturing without engineering review. Verify power rails, pin numbering, connector orientation, component polarity, footprints, ERC, DRC, and the final netlist. Build and test a prototype before production.
+> Не отправляй автоматически сгенерированную плату в производство без инженерной проверки. Проверь питание, нумерацию выводов, ориентацию разъёмов, полярность компонентов, посадочные места, ERC, DRC и итоговый список соединений. Перед производством собери и протестируй прототип.
 
-## API key security
+## Безопасность API-ключей
 
-- API keys must not be stored in the repository.
-- API keys must not be written to logs.
-- Use environment variables, local secure storage, or temporary in-memory input.
-- Never commit `.env` files.
-- Cloud AI providers may receive PDF pages or extracted content. Review the provider's privacy policy before processing confidential designs.
+- Не храни API-ключи в репозитории.
+- Не записывай API-ключи в журналы.
+- Используй переменные окружения, защищённое локальное хранилище или временный ввод в память.
+- Никогда не добавляй файлы `.env` в коммиты.
+- Облачные ИИ-сервисы могут получать страницы PDF и извлечённые данные. Перед обработкой конфиденциальных схем изучи политику приватности сервиса.
 
-Recommended `.gitignore` entries:
+Рекомендуемые записи `.gitignore`:
 
 ```gitignore
 .env
@@ -185,55 +185,56 @@ output/
 logs/
 ```
 
-## Roadmap
+<a id="roadmap"></a>
 
-### v0.1 — Processing core
+## План разработки
 
-- PDF parsing
-- AI provider adapters
-- Structured circuit model
-- Strict validation
-- Windows launcher
+### v0.1 — Основные этапы обработки
 
-### v0.2 — Schematic export
+- Разбор PDF
+- Адаптеры ИИ-сервисов
+- Структурированная модель цепи
+- Строгая проверка
+- Скрипт запуска для Windows
 
-- Symbol library
-- Net generation
-- EasyEDA Standard SCH export
-- Schematic validation
+### v0.2 — Экспорт схемы
 
-### v0.3 — PCB export
+- Библиотека условных обозначений
+- Формирование соединений
+- Экспорт EasyEDA Standard SCH
+- Проверка схемы
 
-- Footprint library
-- Board outline detection
-- Component placement
-- EasyEDA Standard PCB export
+### v0.3 — Экспорт печатной платы
 
-### v0.4 — Routing and verification
+- Библиотека посадочных мест
+- Определение контура платы
+- Размещение компонентов
+- Экспорт EasyEDA Standard PCB
 
-- DSN export
-- Autorouter integration
-- SES import
-- ERC and DRC reports
-- Final netlist comparison
+### v0.4 — Трассировка и проверка
 
-### v1.0 — One-click conversion
+- Экспорт DSN
+- Интеграция автотрассировщика
+- Импорт SES
+- Отчёты ERC и DRC
+- Итоговое сравнение списков соединений
+
+### v1.0 — Преобразование в один клик
 
 ```text
-PDF + API key → validated EasyEDA SCH and PCB
+PDF + API-ключ → проверенные файлы EasyEDA SCH и PCB
 ```
 
-## Contributing
+## Участие в разработке
 
-Contributions, testing files, bug reports, symbol libraries, footprint mappings, and EasyEDA format research are welcome.
+Приветствуются доработки, тестовые файлы, сообщения об ошибках, библиотеки условных обозначений, соответствия посадочных мест и исследования формата EasyEDA.
 
-When reporting an issue, please remove API keys and confidential circuit information before uploading files.
+Перед загрузкой файлов к сообщению об ошибке удали API-ключи и конфиденциальные сведения о схеме.
 
-## License
+## Лицензия
 
-MIT License. See `LICENSE` for details.
-
+Лицензия MIT. Подробности — в `LICENSE`.
 
 ---
 
-Maintained by [ggrrrt5543](https://github.com/ggrrrt5543). Инструкции, ограничения и сведения о сторонних компонентах приведены выше.
+Автор и поддержка — [ggrrrt5543](https://github.com/ggrrrt5543). Инструкции, ограничения и сведения о сторонних компонентах приведены выше.
